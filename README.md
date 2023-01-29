@@ -5,3 +5,7 @@ PixelDancerMath or PXDMath is a library of math functions and data structures. I
 ## Aim
 
 - Current aim is to integrate SIMD to math functions
+
+## Reference
+
+- Lengyel, E. (2016). Foundations of Game Engine Development: Volume 1: Mathematics. Terathon Software LLC.
