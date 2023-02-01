@@ -19,25 +19,11 @@ void Vector3D::Print(const char* name)
 
 PXDMATH_API float& Vector3D::operator[](int i)
 {
-	float nullValue = 0.0f;
-
-	if (i < 0 || i > 2)
-	{
-		return nullValue;
-	}
-
 	return ((&x)[i]);
 }
 
 const float& Vector3D::operator[](int i) const
 {
-	const float nullValue = 0.0f;
-
-	if (i < 0 || i > 2)
-	{
-		return nullValue;
-	}
-
 	return ((&x)[i]);
 }
 
