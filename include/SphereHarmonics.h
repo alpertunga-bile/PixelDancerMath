@@ -3,6 +3,13 @@
 #include "Vector3D.h"
 #include <vector>
 
+struct SHSample
+{
+	Vector3D sh;
+	Vector3D vec;
+	std::vector<double> coefficient;
+};
+
 class SphereHarmonics
 {
 public:
@@ -15,10 +22,14 @@ public:
 	PXDMATH_API SphereHarmonics& operator=(const SphereHarmonics& other) = default; // move assignment
 	PXDMATH_API ~SphereHarmonics() = default; // deconstructor
 
-	PXDMATH_API void Setup();
 	PXDMATH_API void Print();
+	PXDMATH_API void ReCalculate(int _countSamples, int _nBands);
+
+	PXDMATH_API inline std::vector<SHSample> GetSamples() { return samples; }
+	// Calculate with different samples and nBands
 
 private:
+	PXDMATH_API void Setup();
 	void PreCalculateFactorials();
 	float Factorial(int n);
 
@@ -29,13 +40,6 @@ private:
 	double SH(int l, int m, double theta, double phi);
 
 private:
-	struct SHSample
-	{
-		Vector3D sh;
-		Vector3D vec;
-		std::vector<double> coefficient;
-	};
-
 	std::vector<SHSample> samples;
 	int nBands;
 	int countOfSamples;

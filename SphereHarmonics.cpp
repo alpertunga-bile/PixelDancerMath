@@ -12,6 +12,7 @@ SphereHarmonics::SphereHarmonics()
 	this->countOfSamples = 10;
 	this->nBands = 1;
 	PreCalculateFactorials();
+	Setup();
 }
 
 SphereHarmonics::SphereHarmonics(int countSample, int nBands)
@@ -20,6 +21,7 @@ SphereHarmonics::SphereHarmonics(int countSample, int nBands)
 	this->countOfSamples = countSample;
 	this->nBands = nBands;
 	PreCalculateFactorials();
+	Setup();
 }
 
 void SphereHarmonics::Setup()
@@ -77,6 +79,15 @@ void SphereHarmonics::Print()
 			printf("%.5f ", samples[i].coefficient[j]);
 		}
 	}
+}
+
+void SphereHarmonics::ReCalculate(int _countSamples, int _nBands)
+{
+	samples.clear();
+	samples.resize(_countSamples * _countSamples);
+	countOfSamples = _countSamples;
+	nBands = _nBands;
+	Setup();
 }
 
 void SphereHarmonics::PreCalculateFactorials()
