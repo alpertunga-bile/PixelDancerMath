@@ -142,21 +142,25 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="include\ConstantValues.h" />
     <ClInclude Include="include\Matrix3D.h" />
-    <ClInclude Include="include\SphereHarmonics.h" />
+    <ClInclude Include="include\Matrix4D.h" />
+    <ClInclude Include="include\SphericalHarmonics.h" />
     <ClInclude Include="include\Vector3D.h" />
+    <ClInclude Include="include\Vector4D.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
+    <ClCompile Include="Matrix4D.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SphereHarmonics.cpp" />
+    <ClCompile Include="SphericalHarmonics.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="Vector4D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -27,10 +27,16 @@
     <ClInclude Include="include\Matrix3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SphereHarmonics.h">
+    <ClInclude Include="include\SphericalHarmonics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ConstantValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vector4D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Matrix4D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +53,13 @@
     <ClCompile Include="Matrix3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SphereHarmonics.cpp">
+    <ClCompile Include="SphericalHarmonics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
