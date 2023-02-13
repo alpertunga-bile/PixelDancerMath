@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "include/SphereHarmonics.h"
+#include "include/SphericalHarmonics.h"
 #include "include/ConstantValues.h"
 
 #include <random>
 #include <string>
 
 
-SphereHarmonics::SphereHarmonics()
+SphericalHarmonics::SphericalHarmonics()
 {
 	samples.resize(100);
 	this->countOfSamples = 10;
@@ -15,7 +15,7 @@ SphereHarmonics::SphereHarmonics()
 	Setup();
 }
 
-SphereHarmonics::SphereHarmonics(int countSample, int nBands)
+SphericalHarmonics::SphericalHarmonics(int countSample, int nBands)
 {
 	samples.resize(countSample * countSample);
 	this->countOfSamples = countSample;
@@ -24,7 +24,7 @@ SphereHarmonics::SphereHarmonics(int countSample, int nBands)
 	Setup();
 }
 
-void SphereHarmonics::Setup()
+void SphericalHarmonics::Setup()
 {
 	const int size = countOfSamples;
 	int index = 0;
@@ -63,7 +63,7 @@ void SphereHarmonics::Setup()
 	}
 }
 
-void SphereHarmonics::Print()
+void SphericalHarmonics::Print()
 {
 	const int totalSize = countOfSamples * countOfSamples;
 
@@ -81,7 +81,7 @@ void SphereHarmonics::Print()
 	}
 }
 
-void SphereHarmonics::ReCalculate(int _countSamples, int _nBands)
+void SphericalHarmonics::ReCalculate(int _countSamples, int _nBands)
 {
 	samples.clear();
 	samples.resize(_countSamples * _countSamples);
@@ -90,7 +90,7 @@ void SphereHarmonics::ReCalculate(int _countSamples, int _nBands)
 	Setup();
 }
 
-void SphereHarmonics::PreCalculateFactorials()
+void SphericalHarmonics::PreCalculateFactorials()
 {
 	for (int i = 0; i < 34; i++)
 	{
@@ -98,14 +98,14 @@ void SphereHarmonics::PreCalculateFactorials()
 	}
 }
 
-float SphereHarmonics::Factorial(int n)
+float SphericalHarmonics::Factorial(int n)
 {
 	if (n == 1 || n == 0) return 1.0f;
 	
 	return n * Factorial(n - 1);
 }
 
-double SphereHarmonics::GetLegendrePolynomialValue(int l, int m, double x)
+double SphericalHarmonics::GetLegendrePolynomialValue(int l, int m, double x)
 {
 	double pmm = 1.0;
 
@@ -138,13 +138,13 @@ double SphereHarmonics::GetLegendrePolynomialValue(int l, int m, double x)
 	return pll;
 }
 
-double SphereHarmonics::GetScalingFactor(int l, int m)
+double SphericalHarmonics::GetScalingFactor(int l, int m)
 {
 	double temp = ((2.0 * l + 1.0) * factorials[l - m]) / (4.0 * PI * factorials[l + m]);
 	return sqrt(temp);
 }
 
-double SphereHarmonics::SH(int l, int m, double theta, double phi)
+double SphericalHarmonics::SH(int l, int m, double theta, double phi)
 {
 	// l -> band ; [0, N]
 	// m -> [-l, l]
