@@ -34,6 +34,7 @@ struct Vector4D
 	PXDMATH_API void Normalize();
 
 	float x, y, z, w;
+	float v_ptr[4];
 };
 
 inline Vector4D operator* (const Vector4D& v, float s)
@@ -74,7 +75,7 @@ inline Vector4D Normalize(const Vector4D& v)
 
 inline float Dot(const Vector4D& a, const Vector4D& b)
 {
-	return a.x * b.x + a.y * b.y + a.z * b.z;
+	return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 
 inline Vector4D Project(const Vector4D& a, const Vector4D& b)

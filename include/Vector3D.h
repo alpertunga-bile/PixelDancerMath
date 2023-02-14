@@ -34,6 +34,7 @@ struct Vector3D
 	PXDMATH_API void Normalize();
 
 	float x, y, z;
+	float v_ptr[3];
 };
 
 inline Vector3D operator* (const Vector3D& v, float s)

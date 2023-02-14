@@ -17,26 +17,28 @@ public:
 
 	PXDMATH_API void Print(const char* name);
 
+	PXDMATH_API inline float* GetMatrix() { return m; }
+
 	PXDMATH_API float& operator()(int i, int j)
 	{
-		return (n[j][i]);
+		return (m[j * 3 + i]);
 	}
 
 	PXDMATH_API const float& operator()(int i, int j) const
 	{
-		return (n[j][i]);
+		return (m[j * 3 + i]);
 	}
 
 	// access the jth column
-	PXDMATH_API Vector3D& operator[] (int j)
+	PXDMATH_API Vector3D operator[] (int j)
 	{
-		return (*reinterpret_cast<Vector3D*>(n[j]));
+		return Vector3D(m[j * 3 + 0], m[j * 3 + 1], m[j * 3 + 2]);
 	}
 
 	// access the jth column
-	PXDMATH_API const Vector3D& operator[](int j) const
+	PXDMATH_API const Vector3D operator[](int j) const
 	{
-		return (*reinterpret_cast<const Vector3D*>(n[j]));
+		return Vector3D(m[j * 3 + 0], m[j * 3 + 1], m[j * 3 + 2]);
 	}
 
 	/*
@@ -47,7 +49,7 @@ public:
 	*/
 
 private:
-	float n[3][3];
+	float m[9];
 };
 
 inline Matrix3D operator+(Matrix3D mA, Matrix3D mB)
@@ -100,5 +102,37 @@ Vector3D operator*(const Matrix3D& m, const Vector3D& v)
 		m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z,
 		m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z,
 		m(2, 0) * v.x + m(2, 1) * v.y + m(2, 2) * v.z
+	);
+}
+
+inline float Determinant(const Matrix3D& m)
+{
+	return(
+		  m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1))
+		+ m(0, 1) * (m(1, 2) * m(2, 0) - m(1, 0) * m(2, 2))
+		+ m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0))
+	);
+}
+
+Matrix3D Inverse(const Matrix3D& m)
+{
+	float det = Determinant(m);
+
+	if (det == 0) return Matrix3D();
+
+	const Vector3D a = m[0];
+	const Vector3D b = m[1];
+	const Vector3D c = m[2];
+
+	Vector3D row0 = Cross(b, c);
+	Vector3D row1 = Cross(c, a);
+	Vector3D row2 = Cross(a, b);
+
+	float invDet = 1.0f / Dot(row2, c);
+
+	return Matrix3D(
+		row0.x * invDet, row0.y * invDet, row0.z * invDet,
+		row1.x * invDet, row1.y * invDet, row1.z * invDet,
+		row2.x * invDet, row2.y * invDet, row2.z * invDet
 	);
 }

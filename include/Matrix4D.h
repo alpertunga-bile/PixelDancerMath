@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Vector3D.h"
 #include "Vector4D.h"
 
 // column based matrix
@@ -17,26 +18,28 @@ public:
 
 	PXDMATH_API void Print(const char* name);
 
+	PXDMATH_API inline float* GetMatrix() { return m; }
+
 	PXDMATH_API float& operator()(int i, int j)
 	{
-		return (n[j][i]);
+		return (m[j * 4 + i]);
 	}
 
 	PXDMATH_API const float& operator()(int i, int j) const
 	{
-		return (n[j][i]);
+		return (m[j * 4 + i]);
 	}
 
 	// access the jth column
-	PXDMATH_API Vector4D& operator[] (int j)
+	PXDMATH_API Vector4D operator[] (int j)
 	{
-		return (*reinterpret_cast<Vector4D*>(n[j]));
+		return Vector4D(m[j * 4 + 0], m[j * 4 + 1], m[j * 4 + 2], m[j * 4 + 3]);
 	}
 
 	// access the jth column
-	PXDMATH_API const Vector4D& operator[](int j) const
+	PXDMATH_API const Vector4D operator[](int j) const
 	{
-		return (*reinterpret_cast<const Vector4D*>(n[j]));
+		return Vector4D(m[j * 4 + 0], m[j * 4 + 1], m[j * 4 + 2], m[j * 4 + 3]);
 	}
 
 	/*
@@ -47,7 +50,7 @@ public:
 	*/
 
 private:
-	float n[4][4];
+	float m[16];
 };
 
 inline Matrix4D operator+(Matrix4D mA, Matrix4D mB)
@@ -112,5 +115,41 @@ Vector4D operator*(const Matrix4D& m, const Vector4D& v)
 		m(1, 0) * v.x + m(1, 1) * v.y + m(1, 2) * v.z + m(1, 3) * v.w,
 		m(2, 0) * v.x + m(2, 1) * v.y + m(2, 2) * v.z + m(2, 3) * v.w,
 		m(3, 0) * v.x + m(3, 1) * v.y + m(3, 2) * v.z + m(3, 3) * v.w
+	);
+}
+
+Matrix4D Inverse(const Matrix4D& m)
+{
+	const Vector3D a = Vector3D(m[0].x, m[0].y, m[0].z);
+	const Vector3D b = Vector3D(m[1].x, m[1].y, m[1].z);
+	const Vector3D c = Vector3D(m[2].x, m[2].y, m[2].z);
+	const Vector3D d = Vector3D(m[3].x, m[3].y, m[3].z);
+
+	const float x = m(3, 0);
+	const float y = m(3, 1);
+	const float z = m(3, 2);
+	const float w = m(3, 3);
+
+	Vector3D s = Cross(a, b);
+	Vector3D t = Cross(c, d);
+	Vector3D u = a * y - b * x;
+	Vector3D v = c * w - d * x;
+
+	float det = (Dot(s, v) + Dot(t, u));
+	if (det == 0) return Matrix4D();
+
+	float invDet = 1.0f / det;
+	s *= invDet; t *= invDet; u *= invDet; v *= invDet;
+
+	Vector3D row0 = Cross(b, v) + t * y;
+	Vector3D row1 = Cross(v, a) - t * x;
+	Vector3D row2 = Cross(d, u) + s * w;
+	Vector3D row3 = Cross(u, c) - s * z;
+
+	return Matrix4D(
+		row0.x, row0.y, row0.z, -Dot(b, t),
+		row1.x, row1.y, row1.z,  Dot(a, t),
+		row2.x, row2.y, row2.z, -Dot(d, s),
+		row3.x, row3.y, row3.z,  Dot(c, s)
 	);
 }
