@@ -32,13 +32,13 @@ public:
 	// access the jth column
 	PXDMATH_API Vector3D operator[] (int j)
 	{
-		return Vector3D(m[j * 3 + 0], m[j * 3 + 1], m[j * 3 + 2]);
+		return Vector3D(m[j + 0], m[j + 3], m[j + 6]);
 	}
 
 	// access the jth column
 	PXDMATH_API const Vector3D operator[](int j) const
 	{
-		return Vector3D(m[j * 3 + 0], m[j * 3 + 1], m[j * 3 + 2]);
+		return Vector3D(m[j + 0], m[j + 3], m[j + 6]);
 	}
 
 	/*
@@ -79,7 +79,7 @@ inline Matrix3D operator*(Matrix3D matrix, float scalar)
 	return Matrix3D(a, b, c);
 }
 
-Matrix3D operator*(const Matrix3D& a, const Matrix3D b)
+inline Matrix3D operator*(const Matrix3D& a, const Matrix3D b)
 {
 	return Matrix3D(
 		a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0),
@@ -96,7 +96,7 @@ Matrix3D operator*(const Matrix3D& a, const Matrix3D b)
 	);
 }
 
-Vector3D operator*(const Matrix3D& m, const Vector3D& v)
+inline Vector3D operator*(const Matrix3D& m, const Vector3D& v)
 {
 	return Vector3D(
 		m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z,
@@ -114,7 +114,7 @@ inline float Determinant(const Matrix3D& m)
 	);
 }
 
-Matrix3D Transpose(const Matrix3D& m)
+inline Matrix3D Transpose(const Matrix3D& m)
 {
 	return Matrix3D(
 		m(0, 0), m(1, 0), m(2, 0),
@@ -123,7 +123,7 @@ Matrix3D Transpose(const Matrix3D& m)
 	);
 }
 
-Matrix3D Inverse(const Matrix3D& m)
+inline Matrix3D Inverse(const Matrix3D& m)
 {
 	float det = Determinant(m);
 

@@ -22,13 +22,13 @@ void Matrix4D::Print(const char* name)
 {
 	std::cout << "--------------------------------------------------------------------------\n";
 	std::cout << name << " (Matrix4D) Variables : \n";
-	for (int column = 0; column < 4; column++)
+	for (int index = 0; index < 16; index++)
 	{
-		for (int row = 0; row < 4; row++)
+		std::cout << m[index] << "\t";
+		if (index == 3 || index == 7 || index == 11 || index == 15)
 		{
-			std::cout << m[column * 4 + row] << "\t";
+			std::cout << "\n";
 		}
-		std::cout << "\n";
 	}
 	std::cout << "--------------------------------------------------------------------------\n";
 }

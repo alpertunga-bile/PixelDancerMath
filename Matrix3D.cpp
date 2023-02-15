@@ -20,13 +20,13 @@ void Matrix3D::Print(const char* name)
 {
 	std::cout << "--------------------------------------------------------------------------\n";
 	std::cout << name << " (Matrix3D) Variables : \n";
-	for (int column = 0; column < 3; column++)
+	for (int index = 0; index < 9; index++)
 	{
-		for (int row = 0; row < 3; row++)
+		std::cout << m[index] << "\t";
+		if (index == 2 || index == 5 || index == 8)
 		{
-			std::cout << m[column * 3 + row] << "\t";
+			std::cout << "\n";
 		}
-		std::cout << "\n";
 	}
 	std::cout << "--------------------------------------------------------------------------\n";
 }

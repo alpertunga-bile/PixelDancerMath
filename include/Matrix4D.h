@@ -33,13 +33,13 @@ public:
 	// access the jth column
 	PXDMATH_API Vector4D operator[] (int j)
 	{
-		return Vector4D(m[j * 4 + 0], m[j * 4 + 1], m[j * 4 + 2], m[j * 4 + 3]);
+		return Vector4D(m[j + 0], m[j + 4], m[j + 8], m[j + 12]);
 	}
 
 	// access the jth column
 	PXDMATH_API const Vector4D operator[](int j) const
 	{
-		return Vector4D(m[j * 4 + 0], m[j * 4 + 1], m[j * 4 + 2], m[j * 4 + 3]);
+		return Vector4D(m[j + 0], m[j + 4], m[j + 8], m[j + 12]);
 	}
 
 	/*
