@@ -118,6 +118,16 @@ Vector4D operator*(const Matrix4D& m, const Vector4D& v)
 	);
 }
 
+Matrix4D Transpose(const Matrix4D& m)
+{
+	return Matrix4D(
+		m(0, 0), m(1, 0), m(2, 0), m(3, 0),
+		m(0, 1), m(1, 1), m(2, 1), m(3, 1),
+		m(0, 2), m(1, 2), m(2, 2), m(3, 2),
+		m(0, 3), m(1, 3), m(2, 3), m(3, 3)
+	);
+}
+
 Matrix4D Inverse(const Matrix4D& m)
 {
 	const Vector3D a = Vector3D(m[0].x, m[0].y, m[0].z);
