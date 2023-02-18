@@ -7,8 +7,11 @@ PixelDancerMath or PXDMath is a library of math functions and data structures. I
 - Current aim is to integrate SIMD to math functions
 
 - [x] AVX2 is implemented to Vector3D class.
+- [x] AVX2 is implemented to Vector4D class.
 
 ## Reference
 
 - Lengyel, E. (2016). Foundations of Game Engine Development: Volume 1: Mathematics. Terathon Software LLC.
 - Green, R. (2003, January 16). Spherical harmonic lighting: The gritty details. Retrieved February 12, 2023, from https://www.cse.chalmers.se/~uffe/xjobb/Readings/GlobalIllumination/Spherical%20Harmonic%20Lighting%20-%20the%20gritty%20details.pdf
+- Part 2: AVX Intrinsics. (n.d.). Retrieved February 18, 2023, from https://chryswoods.com/vector_c++/immintrin.html
+- Rust Simd Performance Guide. Vertical and horizontal operations - Rust SIMD Performance Guide. (n.d.). Retrieved February 18, 2023, from https://rust-lang.github.io/packed_simd/perf-guide/vert-hor-ops.html

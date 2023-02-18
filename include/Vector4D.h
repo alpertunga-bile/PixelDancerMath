@@ -2,70 +2,87 @@
 
 #include <cmath>
 
+#ifdef __AVX__
+#include <immintrin.h>
+#else
+std::cout << "AVX is not supported! You have to have AVX compatibility to compile";
+exit(0);
+#endif
+
 #ifdef PXDMATH_EXPORTS
 #define PXDMATH_API __declspec(dllexport)
 #else
 #define PXDMATH_API __declspec(dllimport)
 #endif
 
-struct Vector4D
+class Vector4D
 {
+public:
 	// Rule of 5
 	PXDMATH_API Vector4D(); // default constructor
-	PXDMATH_API Vector4D(float _x, float _y, float _z, float _w); // special constructor
+	PXDMATH_API Vector4D(double _x, double _y, double _z, double _w); // special constructor
+	PXDMATH_API Vector4D(__m256d newVector); // special constructor
 	PXDMATH_API Vector4D(const Vector4D& other) = default; // copy constructor
 	PXDMATH_API Vector4D(Vector4D&& other) = default; // move constructor
 	PXDMATH_API Vector4D& operator=(const Vector4D& other) = default; // move assignment
 	PXDMATH_API ~Vector4D() = default; // deconstructor
 
 	PXDMATH_API void Print(const char* name);
+	PXDMATH_API void GetFloatArray(float* arr);
 
 	// accessing variables with indicies
-	PXDMATH_API float& operator[] (int i);
-	PXDMATH_API const float& operator[](int i) const;
+	PXDMATH_API double& operator[] (int i);
+	PXDMATH_API const double& operator[](int i) const;
 
 	// math operator overloads
-	PXDMATH_API Vector4D& operator*=(float s);
-	PXDMATH_API Vector4D& operator/=(float s);
+	PXDMATH_API Vector4D& operator*=(double s);
+	PXDMATH_API Vector4D& operator/=(double s);
 	PXDMATH_API Vector4D& operator+=(const Vector4D& v);
 	PXDMATH_API Vector4D& operator-=(const Vector4D& v);
 
-	PXDMATH_API float Magnitude();
+	PXDMATH_API double Magnitude();
 	PXDMATH_API void Normalize();
 
-	float x, y, z, w;
-	float v_ptr[4];
+	double x, y, z, w;
+	double v_ptr[4];
+	__m256d _vector;
+
+private:
+	void SetVariables();
 };
 
-inline Vector4D operator* (const Vector4D& v, float s)
+inline Vector4D operator* (const Vector4D& v, double s)
 {
-	return Vector4D(v.x * s, v.y * s, v.z * s, v.w * s);
+	return Vector4D(_mm256_mul_pd(v._vector, _mm256_set1_pd(s)));
 }
 
-inline Vector4D operator/ (const Vector4D& v, float s)
+inline Vector4D operator/ (const Vector4D& v, double s)
 {
-	s = 1.0f / s;
-	return Vector4D(v.x * s, v.y * s, v.z * s, v.w * s);
+	return Vector4D(_mm256_mul_pd(v._vector, _mm256_set1_pd(1.0 / s)));
 }
 
 inline Vector4D operator- (const Vector4D& v)
 {
-	return Vector4D(-v.x, -v.y, -v.z, -v.w);
+	return Vector4D(_mm256_mul_pd(v._vector, _mm256_set1_pd(-1.0)));
 }
 
 inline Vector4D operator+(const Vector4D& a, const Vector4D& b)
 {
-	return Vector4D(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+	return Vector4D(_mm256_add_pd(a._vector, b._vector));
 }
 
 inline Vector4D operator-(const Vector4D& a, const Vector4D& b)
 {
-	return Vector4D(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+	return Vector4D(_mm256_sub_pd(a._vector, b._vector));
 }
 
-inline float Magnitude(const Vector4D& v)
+inline double Magnitude(const Vector4D& v)
 {
-	return std::sqrtf(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+	double tempPtr[4];
+	__m256d vec2 = _mm256_mul_pd(v._vector, v._vector);
+	vec2 = _mm256_hadd_pd(vec2, vec2);
+	_mm256_store_pd(tempPtr, _mm256_sqrt_pd(vec2));
+	return tempPtr[0] + tempPtr[2];
 }
 
 inline Vector4D Normalize(const Vector4D& v)
@@ -75,7 +92,11 @@ inline Vector4D Normalize(const Vector4D& v)
 
 inline float Dot(const Vector4D& a, const Vector4D& b)
 {
-	return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
+	double tempPtr[4];
+	__m256d vec2 = _mm256_mul_pd(a._vector, b._vector);
+	vec2 = _mm256_hadd_pd(vec2, vec2);
+	_mm256_store_pd(tempPtr, vec2);
+	return tempPtr[0] + tempPtr[2];
 }
 
 inline Vector4D Project(const Vector4D& a, const Vector4D& b)

@@ -28,6 +28,7 @@ public:
 	PXDMATH_API ~Vector3D() = default; // deconstructor
 
 	PXDMATH_API void Print(const char* name);
+	PXDMATH_API void GetFloatArray(float* arr);
 
 	// accessing variables with indicies
 	PXDMATH_API double& operator[] (int i);
@@ -92,8 +93,7 @@ inline float Dot(const Vector3D& a, const Vector3D& b)
 {
 	double tempPtr[4];
 	__m256d xy = _mm256_mul_pd(a._vector, b._vector);
-	__m256d temp = _mm256_hadd_pd(xy, xy);
-	_mm256_store_pd(tempPtr, temp);
+	_mm256_store_pd(tempPtr, _mm256_hadd_pd(xy, xy));
 	return tempPtr[0] + tempPtr[2];
 }
 

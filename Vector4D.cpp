@@ -6,12 +6,20 @@ Vector4D::Vector4D()
 {
 	x = 0.0f; y = 0.0f; z = 0.0f, w = 0.0f;
 	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z; v_ptr[3] = w;
+	_vector = _mm256_set1_pd(0.0f);
 }
 
-Vector4D::Vector4D(float _x, float _y, float _z, float _w)
+Vector4D::Vector4D(double _x, double _y, double _z, double _w)
 {
 	x = _x; y = _y; z = _z; w = _w;
 	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z; v_ptr[3] = w;
+	_vector = _mm256_load_pd(v_ptr);
+}
+
+Vector4D::Vector4D(__m256d newVector)
+{
+	_vector = newVector;
+	SetVariables();
 }
 
 void Vector4D::Print(const char* name)
@@ -19,57 +27,68 @@ void Vector4D::Print(const char* name)
 	std::cout << name << " (Vector4D) => x : " << x << " | y : " << y << " | z : " << z << " | w : " << w << '\n';
 }
 
-PXDMATH_API float& Vector4D::operator[](int i)
+void Vector4D::GetFloatArray(float* arr)
+{
+	arr[0] = (float)v_ptr[0];
+	arr[1] = (float)v_ptr[1];
+	arr[2] = (float)v_ptr[2];
+	arr[3] = (float)v_ptr[3];
+}
+
+PXDMATH_API double& Vector4D::operator[](int i)
 {
 	return (v_ptr[i]);
 }
 
-const float& Vector4D::operator[](int i) const
+const double& Vector4D::operator[](int i) const
 {
 	return (v_ptr[i]);
 }
 
-Vector4D& Vector4D::operator*=(float s)
+Vector4D& Vector4D::operator*=(double s)
 {
-	x *= s; y *= s; z *= s; w *= s;
-	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z; v_ptr[3] = w;
+	_vector = _mm256_mul_pd(_vector, _mm256_set1_pd(s));
+	SetVariables();
 	return (*this);
 }
 
-Vector4D& Vector4D::operator/=(float s)
+Vector4D& Vector4D::operator/=(double s)
 {
-	s = 1.0f / s;
-	x *= s; y *= s; z *= s; w *= s;
-	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z; v_ptr[3] = w;
+	_vector = _mm256_mul_pd(_vector, _mm256_set1_pd(1.0 / s));
+	SetVariables();
 	return (*this);
 }
 
 Vector4D& Vector4D::operator+=(const Vector4D& v)
 {
-	x += v.x;
-	y += v.x;
-	z += v.z;
-	w += v.w;
-	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z; v_ptr[3] = w;
+	_vector = _mm256_add_pd(_vector, v._vector);
+	SetVariables();
 	return (*this);
 }
 
 Vector4D& Vector4D::operator-=(const Vector4D& v)
 {
-	x -= v.x;
-	y -= v.x;
-	z -= v.z;
-	w -= v.w;
-	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z; v_ptr[3] = w;
+	_vector = _mm256_sub_pd(_vector, v._vector);
+	SetVariables();
 	return (*this);
 }
 
-float Vector4D::Magnitude()
+double Vector4D::Magnitude()
 {
-	return std::sqrtf(x * x + y * y + z * z + w * w);
+	double tempPtr[4];
+	__m256d vec2 = _mm256_mul_pd(_vector, _vector);
+	vec2 = _mm256_hadd_pd(vec2, vec2);
+	_mm256_store_pd(tempPtr, _mm256_sqrt_pd(vec2));
+	return tempPtr[0] + tempPtr[2];
 }
 
 void Vector4D::Normalize()
 {
 	(*this) /= Magnitude();
+}
+
+void Vector4D::SetVariables()
+{
+	_mm256_store_pd(v_ptr, _vector);
+	x = v_ptr[0]; y = v_ptr[1]; z = v_ptr[2]; w = v_ptr[3];
 }

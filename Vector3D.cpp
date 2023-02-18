@@ -27,6 +27,13 @@ void Vector3D::Print(const char* name)
 	std::cout << name << " (Vector3D) => x : " << x << " | y : " << y << " | z : " << z << '\n';
 }
 
+void Vector3D::GetFloatArray(float* arr)
+{
+	arr[0] = (float)v_ptr[0];
+	arr[1] = (float)v_ptr[1];
+	arr[2] = (float)v_ptr[2];
+}
+
 PXDMATH_API double& Vector3D::operator[](int i)
 {
 	return (v_ptr[i]);
