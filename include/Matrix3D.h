@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector3D.h"
+#include "Matrix4D.h"
 
 // column based matrix
 struct Matrix3D
@@ -10,6 +10,7 @@ public:
 	PXDMATH_API Matrix3D() = default; // default constructor
 	PXDMATH_API Matrix3D(float n00, float n01, float n02, float n10, float n11, float n12, float n20, float n21, float n22); // special constructor
 	PXDMATH_API Matrix3D(const Vector3D& a, const Vector3D& b, const Vector3D& c); // special constructor
+	PXDMATH_API Matrix3D(const Matrix4D& fromMat);
 	PXDMATH_API Matrix3D(const Matrix3D& other) = default; // copy constructor
 	PXDMATH_API Matrix3D(Matrix3D&& other) = default; // move constructor
 	PXDMATH_API Matrix3D& operator=(const Matrix3D& other) = default; // move assignment
@@ -70,7 +71,7 @@ inline Matrix3D operator-(Matrix3D mA, Matrix3D mB)
 	return Matrix3D(a, b, c);
 }
 
-inline Matrix3D operator*(Matrix3D matrix, float scalar)
+inline Matrix3D operator*(Matrix3D matrix, double scalar)
 {
 	Vector3D a = matrix[0] * scalar;
 	Vector3D b = matrix[1] * scalar;
@@ -137,11 +138,11 @@ inline Matrix3D Inverse(const Matrix3D& m)
 	Vector3D row1 = Cross(c, a);
 	Vector3D row2 = Cross(a, b);
 
-	float invDet = 1.0f / Dot(row2, c);
+	double invDet = 1.0f / Dot(row2, c);
 
 	return Matrix3D(
-		row0.x * invDet, row0.y * invDet, row0.z * invDet,
-		row1.x * invDet, row1.y * invDet, row1.z * invDet,
-		row2.x * invDet, row2.y * invDet, row2.z * invDet
+		row0 * invDet,
+		row1 * invDet,
+		row2 * invDet
 	);
 }

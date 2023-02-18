@@ -12,10 +12,10 @@ Matrix4D::Matrix4D(float n00, float n01, float n02, float n03, float n10, float 
 
 Matrix4D::Matrix4D(const Vector4D& a, const Vector4D& b, const Vector4D& c, const Vector4D& d)
 {
-	m[ 0] = a.x; m[ 1] = a.y; m[ 2] = a.z; m[ 3] = a.w;
-	m[ 4] = b.x; m[ 5] = b.y; m[ 6] = b.z; m[ 7] = b.w;
-	m[ 8] = c.x; m[ 9] = c.y; m[10] = c.z; m[11] = c.w;
-	m[12] = d.x; m[13] = d.y; m[14] = d.z; m[15] = d.w;
+	m[ 0] = (float)a.x; m[ 1] = (float)a.y; m[ 2] = (float)a.z; m[ 3] = (float)a.w;
+	m[ 4] = (float)b.x; m[ 5] = (float)b.y; m[ 6] = (float)b.z; m[ 7] = (float)b.w;
+	m[ 8] = (float)c.x; m[ 9] = (float)c.y; m[10] = (float)c.z; m[11] = (float)c.w;
+	m[12] = (float)d.x; m[13] = (float)d.y; m[14] = (float)d.z; m[15] = (float)d.w;
 }
 
 void Matrix4D::Print(const char* name)

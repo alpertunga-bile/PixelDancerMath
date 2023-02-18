@@ -89,7 +89,7 @@ inline Vector3D Normalize(const Vector3D& v)
 	return (v / Magnitude(v));
 }
 
-inline float Dot(const Vector3D& a, const Vector3D& b)
+inline double Dot(const Vector3D& a, const Vector3D& b)
 {
 	double tempPtr[4];
 	__m256d xy = _mm256_mul_pd(a._vector, b._vector);

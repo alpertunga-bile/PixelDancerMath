@@ -11,9 +11,16 @@ Matrix3D::Matrix3D(float n00, float n01, float n02, float n10, float n11, float 
 
 Matrix3D::Matrix3D(const Vector3D& a, const Vector3D& b, const Vector3D& c)
 {
-	m[0] = a.x; m[1] = a.y; m[2] = a.z;
-	m[3] = b.x; m[4] = b.y; m[5] = b.z;
-	m[6] = c.x; m[7] = c.y; m[8] = c.z;
+	m[0] = (float)a.x; m[1] = (float)a.y; m[2] = (float)a.z;
+	m[3] = (float)b.x; m[4] = (float)b.y; m[5] = (float)b.z;
+	m[6] = (float)c.x; m[7] = (float)c.y; m[8] = (float)c.z;
+}
+
+Matrix3D::Matrix3D(const Matrix4D& fromMat)
+{
+	m[0] = fromMat(0, 0); m[1] = fromMat(1, 0); m[2] = fromMat(2, 0);
+	m[3] = fromMat(0, 1); m[4] = fromMat(1, 1); m[5] = fromMat(2, 1);
+	m[6] = fromMat(0, 2); m[7] = fromMat(1, 2); m[8] = fromMat(2, 2);
 }
 
 void Matrix3D::Print(const char* name)

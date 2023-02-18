@@ -73,7 +73,7 @@ inline Matrix4D operator-(Matrix4D mA, Matrix4D mB)
 	return Matrix4D(a, b, c, d);
 }
 
-inline Matrix4D operator*(Matrix4D matrix, float scalar)
+inline Matrix4D operator*(Matrix4D matrix, double scalar)
 {
 	Vector4D a = matrix[0] * scalar;
 	Vector4D b = matrix[1] * scalar;
@@ -83,7 +83,7 @@ inline Matrix4D operator*(Matrix4D matrix, float scalar)
 	return Matrix4D(a, b, c, d);
 }
 
-Matrix4D operator*(const Matrix4D& a, const Matrix4D b)
+inline Matrix4D operator*(const Matrix4D& a, const Matrix4D b)
 {
 	return Matrix4D(
 		a(0, 0) * b(0, 0) + a(0, 1) * b(1, 0) + a(0, 2) * b(2, 0) + a(0, 3) * b(3, 0),
@@ -108,7 +108,7 @@ Matrix4D operator*(const Matrix4D& a, const Matrix4D b)
 	);
 }
 
-Vector4D operator*(const Matrix4D& m, const Vector4D& v)
+inline Vector4D operator*(const Matrix4D& m, const Vector4D& v)
 {
 	return Vector4D(
 		m(0, 0) * v.x + m(0, 1) * v.y + m(0, 2) * v.z + m(0, 3) * v.w,
@@ -118,7 +118,7 @@ Vector4D operator*(const Matrix4D& m, const Vector4D& v)
 	);
 }
 
-Matrix4D Transpose(const Matrix4D& m)
+inline Matrix4D Transpose(const Matrix4D& m)
 {
 	return Matrix4D(
 		m(0, 0), m(1, 0), m(2, 0), m(3, 0),
@@ -128,7 +128,7 @@ Matrix4D Transpose(const Matrix4D& m)
 	);
 }
 
-Matrix4D Inverse(const Matrix4D& m)
+inline Matrix4D Inverse(const Matrix4D& m)
 {
 	const Vector3D a = Vector3D(m[0].x, m[0].y, m[0].z);
 	const Vector3D b = Vector3D(m[1].x, m[1].y, m[1].z);
@@ -145,10 +145,10 @@ Matrix4D Inverse(const Matrix4D& m)
 	Vector3D u = a * y - b * x;
 	Vector3D v = c * w - d * x;
 
-	float det = (Dot(s, v) + Dot(t, u));
+	double det = (Dot(s, v) + Dot(t, u));
 	if (det == 0) return Matrix4D();
 
-	float invDet = 1.0f / det;
+	double invDet = 1.0f / det;
 	s *= invDet; t *= invDet; u *= invDet; v *= invDet;
 
 	Vector3D row0 = Cross(b, v) + t * y;
