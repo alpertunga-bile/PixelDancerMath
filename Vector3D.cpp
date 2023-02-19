@@ -44,7 +44,7 @@ const double& Vector3D::operator[](int i) const
 	return (v_ptr[i]);
 }
 
-Vector3D& Vector3D::operator*=(float s)
+Vector3D& Vector3D::operator*=(double s)
 {
 	__m256d temp = _mm256_set1_pd(s);
 	_vector = _mm256_mul_pd(_vector, temp);
@@ -52,8 +52,10 @@ Vector3D& Vector3D::operator*=(float s)
 	return (*this);
 }
 
-Vector3D& Vector3D::operator/=(float s)
+Vector3D& Vector3D::operator/=(double s)
 {
+	if (s == 0.0) return (*this);
+
 	__m256d temp = _mm256_set1_pd(1.0 / s);
 	_vector = _mm256_mul_pd(_vector, temp);
 	SetVariables();

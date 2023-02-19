@@ -35,8 +35,8 @@ public:
 	PXDMATH_API const double& operator[](int i) const;
 
 	// math operator overloads
-	PXDMATH_API Vector3D& operator*=(float s);
-	PXDMATH_API Vector3D& operator/=(float s);
+	PXDMATH_API Vector3D& operator*=(double s);
+	PXDMATH_API Vector3D& operator/=(double s);
 	PXDMATH_API Vector3D& operator+=(const Vector3D& v);
 	PXDMATH_API Vector3D& operator-=(const Vector3D& v);
 
@@ -58,6 +58,8 @@ inline Vector3D operator* (const Vector3D& v, double s)
 
 inline Vector3D operator/ (const Vector3D& v, double s)
 {
+	if (s == 0.0) return v;
+
 	return Vector3D(_mm256_mul_pd(v._vector, _mm256_set1_pd(1.0 / s)));
 }
 

@@ -54,6 +54,8 @@ Vector4D& Vector4D::operator*=(double s)
 
 Vector4D& Vector4D::operator/=(double s)
 {
+	if (s == 0.0) return (*this);
+
 	_vector = _mm256_mul_pd(_vector, _mm256_set1_pd(1.0 / s));
 	SetVariables();
 	return (*this);

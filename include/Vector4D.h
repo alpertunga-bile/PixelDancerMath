@@ -58,6 +58,8 @@ inline Vector4D operator* (const Vector4D& v, double s)
 
 inline Vector4D operator/ (const Vector4D& v, double s)
 {
+	if (s == 0.0) return v;
+
 	return Vector4D(_mm256_mul_pd(v._vector, _mm256_set1_pd(1.0 / s)));
 }
 
