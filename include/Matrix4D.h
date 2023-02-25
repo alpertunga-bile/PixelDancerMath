@@ -6,7 +6,6 @@
 // column based matrix
 struct Matrix4D
 {
-public:
 	// Rule of 5
 	PXDMATH_API Matrix4D() = default; // default constructor
 	PXDMATH_API Matrix4D(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13, float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33); // special constructor
@@ -17,8 +16,6 @@ public:
 	PXDMATH_API ~Matrix4D() = default; // deconstructor
 
 	PXDMATH_API void Print(const char* name);
-
-	PXDMATH_API inline float* GetMatrix() { return m; }
 
 	PXDMATH_API float& operator()(int i, int j)
 	{
@@ -49,7 +46,6 @@ public:
 	PXDMATH_API Matrix4D& operator-=(const Matrix4D& v);
 	*/
 
-private:
 	float m[16];
 };
 

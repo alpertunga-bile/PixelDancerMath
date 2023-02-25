@@ -98,4 +98,45 @@ namespace pxd
 			axaz, ayaz, z * axis.z - 1.0f
 		);
 	}
+	
+	Matrix3D MakeScale(float sx, float sy, float sz)
+	{
+		return Matrix3D(
+		  sx, 0.0f, 0.0f,
+		0.0f,   sy, 0.0f,
+		0.0f, 0.0f,   sz
+		);
+	}
+	
+	Matrix3D MakeScale(float scale, const Vector3D& v)
+	{
+		scale -= 1.0f;
+
+		float x = v.x * scale;
+		float y = v.y * scale;
+		float z = v.z * scale;
+
+		float axay = x * v.y;
+		float axaz = x * v.z;
+		float ayaz = y * v.z;
+
+		return Matrix3D(
+			x * v.x + 1.0f, axay, axaz,
+			axay, y * v.y + 1.0f, ayaz,
+			axaz, ayaz, z * v.z + 1.0f
+		);
+	}
+	Matrix3D MakeSkew(float angle, const Vector3D& dir, const Vector3D& height)
+	{
+		angle = std::tan(angle);
+		float x = dir.x * angle;
+		float y = dir.y * angle;
+		float z = dir.z * angle;
+
+		return Matrix3D(
+			x * height.x + 1.0f, x * height.y, x * height.z,
+			y * height.x, y * height.y + 1.0f, y * height.z,
+			z * height.x, y * height.y, z * height.z + 1.0f
+		);
+	}
 }

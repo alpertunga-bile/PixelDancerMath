@@ -15,9 +15,8 @@ exit(0);
 #define PXDMATH_API __declspec(dllimport)
 #endif
 
-class Vector3D
+struct Vector3D
 {
-public:
 	// Rule of 5
 	PXDMATH_API Vector3D(); // default constructor
 	PXDMATH_API Vector3D(double _x, double _y, double _z); // special constructor
