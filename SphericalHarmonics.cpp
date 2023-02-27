@@ -41,8 +41,8 @@ void SphericalHarmonics::Setup()
 			double x = (a + randGen(generator)) * oneOverSamples;
 			double y = (b + randGen(generator)) * oneOverSamples;
 
-			float theta = 2.0 * acos(sqrt(1.0 - x));
-			float phi = 2.0 * PI * y;
+			double theta = 2.0 * acos(sqrt(1.0 - x));
+			double phi = 2.0 * PI * y;
 
 			samples[index].sh = Vector3D(theta, phi, 1.0);
 			// spherical coords to cartesian coordinate

@@ -28,8 +28,18 @@ public:
 
 	PXDMATH_API inline std::vector<SHSample> GetSamples() { return samples; }
 
+	PXDMATH_API SHSample operator[] (int index)
+	{
+		return samples[index];
+	}
+
+	PXDMATH_API const SHSample operator[] (int index) const
+	{
+		return samples[index];
+	}
+
 private:
-	PXDMATH_API void Setup();
+	void Setup();
 	void PreCalculateFactorials();
 	float Factorial(int n);
 
