@@ -26,3 +26,10 @@ inline Quaternion operator*(const Quaternion& q1, const Quaternion& q2)
 		q1.w * q2.w - Dot(q1.v, q2.v)
 	);
 }
+
+inline Vector3D Transform(const Vector3D& v, const Quaternion& q)
+{
+	const Vector3D& b = q.v;
+	double b2 = Dot(b, b);
+	return (v * (q.w * q.w - b2) + b * (Dot(v, b) * 2.0) + Cross(b, v) * (q.w * 2.0));
+}
