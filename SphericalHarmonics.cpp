@@ -8,11 +8,7 @@
 
 SphericalHarmonics::SphericalHarmonics()
 {
-	samples.resize(100);
-	this->countOfSamples = 10;
-	this->nBands = 1;
 	PreCalculateFactorials();
-	Setup();
 }
 
 SphericalHarmonics::SphericalHarmonics(int countSample, int nBands)
@@ -88,6 +84,25 @@ void SphericalHarmonics::ReCalculate(int _countSamples, int _nBands)
 	countOfSamples = _countSamples;
 	nBands = _nBands;
 	Setup();
+}
+
+std::vector<float> SphericalHarmonics::GetCoefficients(float a, float b, int nBands)
+{
+	std::vector<float> coeffs(nBands * nBands);
+
+	double theta = 2.0 * acos(sqrt(1.0 - a));
+	double phi = 2.0 * PI * b;
+
+	for (int l = 0; l < nBands; l++)
+	{
+		for (int m = -l; m <= l; m++)
+		{
+			int coefIndex = l * (l + 1) + m;
+			coeffs[coefIndex] = SH(l, m, theta, phi);
+		}
+	}
+
+	return coeffs;
 }
 
 void SphericalHarmonics::PreCalculateFactorials()

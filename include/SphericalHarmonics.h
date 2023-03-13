@@ -28,6 +28,8 @@ public:
 
 	PXDMATH_API inline std::vector<SHSample> GetSamples() { return samples; }
 
+	PXDMATH_API std::vector<float> GetCoefficients(float a, float b, int nBands);
+
 	PXDMATH_API SHSample operator[] (int index)
 	{
 		return samples[index];
