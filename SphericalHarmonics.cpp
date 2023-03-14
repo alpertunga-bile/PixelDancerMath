@@ -39,7 +39,8 @@ void SphericalHarmonics::Setup()
 
 			x = x < 0.0 ? 0.0 : x;
 			x = x > 1.0 ? 1.0 : x;
-			y = y < 0.0 ? 0.0 : x;
+
+			y = y < 0.0 ? 0.0 : y;
 			y = y > 1.0 ? 1.0 : y;
 
 			double theta = 2.0 * acos(sqrt(1.0 - x));
@@ -94,6 +95,12 @@ void SphericalHarmonics::ReCalculate(int _countSamples, int _nBands)
 std::vector<float> SphericalHarmonics::GetCoefficients(float a, float b, int nBands)
 {
 	std::vector<float> coeffs(nBands * nBands);
+
+	a = a < 0.0 ? 0.0 : a;
+	a = a > 1.0 ? 1.0 : a;
+
+	b = b < 0.0 ? 0.0 : b;
+	b = b > 1.0 ? 1.0 : b;
 
 	double theta = 2.0 * acos(sqrt(1.0 - a));
 	double phi = 2.0 * PI * b;
