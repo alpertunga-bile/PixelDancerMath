@@ -4,7 +4,7 @@
 
 Vector3D::Vector3D()
 {
-	x = 0.0f; y = 0.0f; z = 0.0f;
+	x = 0.0; y = 0.0; z = 0.0;
 	v_ptr[0] = x; v_ptr[1] = y; v_ptr[2] = z;
 	_vector = _mm256_set1_pd(0.0);
 }

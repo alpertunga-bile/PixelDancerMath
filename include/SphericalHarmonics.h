@@ -2,6 +2,7 @@
 
 #include "Vector3D.h"
 #include <vector>
+#include <stdexcept>
 
 struct SHSample
 {
@@ -27,16 +28,29 @@ public:
 	PXDMATH_API void ReCalculate(int _countSamples, int _nBands);
 
 	PXDMATH_API inline std::vector<SHSample> GetSamples() { return samples; }
+	PXDMATH_API inline int GetSampleCount() { return samples.size(); }
+	PXDMATH_API inline int GetBandsCount() { return nBands; }
+	PXDMATH_API inline int GetCoefficientSize() { return nBands * nBands; }
 
 	PXDMATH_API std::vector<float> GetCoefficients(float a, float b, int nBands);
 
 	PXDMATH_API SHSample operator[] (int index)
 	{
+		if (index >= samples.size() || index < 0)
+		{
+			throw std::out_of_range("::EXCEPTION:: Spherical Harmonics - Index Out Of Range");
+		}
+
 		return samples[index];
 	}
 
 	PXDMATH_API const SHSample operator[] (int index) const
 	{
+		if (index >= samples.size() || index < 0)
+		{
+			throw std::out_of_range("::EXCEPTION:: Spherical Harmonics - Index Out Of Range");
+		}
+
 		return samples[index];
 	}
 

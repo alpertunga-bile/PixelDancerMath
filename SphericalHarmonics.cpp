@@ -37,6 +37,11 @@ void SphericalHarmonics::Setup()
 			double x = (a + randGen(generator)) * oneOverSamples;
 			double y = (b + randGen(generator)) * oneOverSamples;
 
+			x = x < 0.0 ? 0.0 : x;
+			x = x > 1.0 ? 1.0 : x;
+			y = y < 0.0 ? 0.0 : x;
+			y = y > 1.0 ? 1.0 : y;
+
 			double theta = 2.0 * acos(sqrt(1.0 - x));
 			double phi = 2.0 * PI * y;
 
