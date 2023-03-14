@@ -24,7 +24,7 @@ void SphericalHarmonics::Setup()
 {
 	const int size = countOfSamples;
 	int index = 0;
-	double oneOverSamples = 1.0 / (countOfSamples * countOfSamples);
+	double oneOverSamples = 1.0 / static_cast<double>(countOfSamples * countOfSamples);
 
 	std::random_device device;
 	std::mt19937 generator(device());
@@ -34,8 +34,8 @@ void SphericalHarmonics::Setup()
 	{
 		for (int b = 0; b < size; b++)
 		{
-			double x = (a + randGen(generator)) * oneOverSamples;
-			double y = (b + randGen(generator)) * oneOverSamples;
+			double x = static_cast<double>(a + randGen(generator)) * oneOverSamples;
+			double y = static_cast<double>(b + randGen(generator)) * oneOverSamples;
 
 			x = x < 0.0 ? 0.0 : x;
 			x = x > 1.0 ? 1.0 : x;
@@ -75,8 +75,8 @@ void SphericalHarmonics::Print()
 		samples[i].sh.Print("Sphere Coordinates");
 		samples[i].vec.Print("Cartesian Coordinate");
 		
-		int coSize = samples[i].coefficient.size();
-		for (int j = 0; j < coSize; j++)
+		size_t coSize = samples[i].coefficient.size();
+		for (size_t j = 0; j < coSize; j++)
 		{
 			printf("%.5f ", samples[i].coefficient[j]);
 		}
@@ -96,11 +96,11 @@ std::vector<float> SphericalHarmonics::GetCoefficients(float a, float b, int nBa
 {
 	std::vector<float> coeffs(nBands * nBands);
 
-	a = a < 0.0 ? 0.0 : a;
-	a = a > 1.0 ? 1.0 : a;
+	a = a < 0.0f ? 0.0f : a;
+	a = a > 1.0f ? 1.0f : a;
 
-	b = b < 0.0 ? 0.0 : b;
-	b = b > 1.0 ? 1.0 : b;
+	b = b < 0.0f ? 0.0f : b;
+	b = b > 1.0f ? 1.0f : b;
 
 	double theta = 2.0 * acos(sqrt(1.0 - a));
 	double phi = 2.0 * PI * b;
@@ -110,7 +110,7 @@ std::vector<float> SphericalHarmonics::GetCoefficients(float a, float b, int nBa
 		for (int m = -l; m <= l; m++)
 		{
 			int coefIndex = l * (l + 1) + m;
-			coeffs[coefIndex] = SH(l, m, theta, phi);
+			coeffs[coefIndex] = static_cast<float>(SH(l, m, theta, phi));
 		}
 	}
 
@@ -150,14 +150,14 @@ double SphericalHarmonics::GetLegendrePolynomialValue(int l, int m, double x)
 	if (l == m) return pmm;
 
 	// rule 3
-	double pmmp1 = x * (2.0 * m + 1.0) * pmm;
+	double pmmp1 = x * (2.0 * static_cast<double>(m) + 1.0) * pmm;
 	if (l == m + 1) return pmmp1;
 
 	// rule 1
 	double pll = 0.0;
 	for (int ll = m + 2; ll <= l; ll++)
 	{
-		pll = ((2.0 * ll - 1.0) * x * pmmp1 - (ll + m - 1.0) * pmm) / (ll - m);
+		pll = ((2.0 * ll - 1.0) * x * pmmp1 - (ll + static_cast<double>(m) - 1.0) * pmm) / (ll - static_cast<double>(m));
 		pmm = pmmp1;
 		pmmp1 = pll;
 	}
@@ -167,7 +167,7 @@ double SphericalHarmonics::GetLegendrePolynomialValue(int l, int m, double x)
 
 double SphericalHarmonics::GetScalingFactor(int l, int m)
 {
-	double temp = ((2.0 * l + 1.0) * factorials[l - m]) / (4.0 * PI * factorials[l + m]);
+	double temp = ((2.0 * static_cast<double>(l) + 1.0) * factorials[l - m]) / (4.0 * PI * factorials[l + m]);
 	return sqrt(temp);
 }
 

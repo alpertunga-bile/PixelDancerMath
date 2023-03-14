@@ -28,7 +28,7 @@ public:
 	PXDMATH_API void ReCalculate(int _countSamples, int _nBands);
 
 	PXDMATH_API inline std::vector<SHSample> GetSamples() { return samples; }
-	PXDMATH_API inline int GetSampleCount() { return samples.size(); }
+	PXDMATH_API inline size_t GetSampleCount() { return samples.size(); }
 	PXDMATH_API inline int GetBandsCount() { return nBands; }
 	PXDMATH_API inline int GetCoefficientSize() { return nBands * nBands; }
 
