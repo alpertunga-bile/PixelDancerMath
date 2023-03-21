@@ -145,8 +145,10 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="include\ConstantValues.h" />
+    <ClInclude Include="include\LineRay.h" />
     <ClInclude Include="include\Matrix3D.h" />
     <ClInclude Include="include\Matrix4D.h" />
+    <ClInclude Include="include\Plane.h" />
     <ClInclude Include="include\Point3D.h" />
     <ClInclude Include="include\Quaternion.h" />
     <ClInclude Include="include\SphericalHarmonics.h" />
@@ -159,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="LineRay.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
     <ClCompile Include="Matrix4D.cpp" />
     <ClCompile Include="pch.cpp">

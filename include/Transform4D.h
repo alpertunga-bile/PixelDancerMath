@@ -101,3 +101,13 @@ inline Point3D operator*(const Transform4D& tf, const Point3D& p)
 		tf(2, 0) * p.x + tf(2, 1) * p.y + tf(2, 2) * p.z + tf(2, 3)
 	);
 }
+
+// Translate normal vector between coordinate systems
+Vector3D operator* (const Vector3D& n, const Transform4D& m)
+{
+	return Vector3D(
+		n.x * m(0, 0) + n.y * m(1, 0) + n.z * m(2, 0),
+		n.x * m(0, 1) + n.y * m(1, 1) + n.z * m(2, 1),
+		n.x * m(0, 2) + n.y * m(1, 2) + n.z * m(2, 2)
+	);
+}
