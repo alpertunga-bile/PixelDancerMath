@@ -1,6 +1,17 @@
 #include "pch.h"
 #include "include/LineRay.h"
+#include "include/Matrix3D.h"
 #include <cfloat>
+
+Line Transform(const Line& line, const Transform4D& h)
+{
+	Matrix3D adj(Cross(h[1], h[2]), Cross(h[2], h[0]), Cross(h[0], h[1]));
+	const Point3D& t = h.GetTranslation();
+
+	Vector3D v = h * line.direction;
+	Vector3D m = adj * line.moment + Cross(t, v);
+	return Line(v, m);
+}
 
 double DistancePointLine(const Point3D& p, const Point3D& start, const Vector3D& dir)
 {
