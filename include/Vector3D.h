@@ -14,7 +14,7 @@ struct Vector3D
   Vector3D& operator=(const Vector3D& other) = default; // move assignment
   ~Vector3D()                                = default; // deconstructor
 
-  void GetFloatArray(float* arr);
+  void GetArray(double* arr);
 
   // accessing variables with indicies
   double&       operator[](int i);

@@ -26,10 +26,9 @@ Vector2D::Vector2D(__m128d newVector)
 }
 
 void
-Vector2D::GetFloatArray(float* arr)
+Vector2D::GetArray(double* arr)
 {
-  arr[0] = static_cast<float>(v_ptr[0]);
-  arr[1] = static_cast<float>(v_ptr[1]);
+  std::memcpy(arr, v_ptr, 2 * sizeof(double));
 }
 
 double&

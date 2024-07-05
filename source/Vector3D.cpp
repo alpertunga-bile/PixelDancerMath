@@ -30,11 +30,9 @@ Vector3D::Vector3D(__m256d newVector)
 }
 
 void
-Vector3D::GetFloatArray(float* arr)
+Vector3D::GetArray(double* arr)
 {
-  arr[0] = (float)v_ptr[0];
-  arr[1] = (float)v_ptr[1];
-  arr[2] = (float)v_ptr[2];
+  std::memcpy(arr, v_ptr, 3 * sizeof(double));
 }
 
 double&

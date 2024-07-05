@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Matrix4D.h"
-
 struct Matrix4D;
 
 // column based matrix

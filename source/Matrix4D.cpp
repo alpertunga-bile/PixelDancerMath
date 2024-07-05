@@ -41,20 +41,20 @@ Matrix4D::Matrix4D(const Vector4D& a,
                    const Vector4D& c,
                    const Vector4D& d)
 {
-  m[0]  = (double)a.x;
-  m[1]  = (double)a.y;
-  m[2]  = (double)a.z;
-  m[3]  = (double)a.w;
-  m[4]  = (double)b.x;
-  m[5]  = (double)b.y;
-  m[6]  = (double)b.z;
-  m[7]  = (double)b.w;
-  m[8]  = (double)c.x;
-  m[9]  = (double)c.y;
-  m[10] = (double)c.z;
-  m[11] = (double)c.w;
-  m[12] = (double)d.x;
-  m[13] = (double)d.y;
-  m[14] = (double)d.z;
-  m[15] = (double)d.w;
+  m[0]  = a.x;
+  m[1]  = a.y;
+  m[2]  = a.z;
+  m[3]  = a.w;
+  m[4]  = b.x;
+  m[5]  = b.y;
+  m[6]  = b.z;
+  m[7]  = b.w;
+  m[8]  = c.x;
+  m[9]  = c.y;
+  m[10] = c.z;
+  m[11] = c.w;
+  m[12] = d.x;
+  m[13] = d.y;
+  m[14] = d.z;
+  m[15] = d.w;
 }

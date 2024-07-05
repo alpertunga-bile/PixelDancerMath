@@ -2,9 +2,10 @@
 
 Vector4D::Vector4D()
 {
-  x = 0.0f;
-  y = 0.0f;
-  z = 0.0f, w = 0.0f;
+  x        = 0.0f;
+  y        = 0.0f;
+  z        = 0.0f;
+  w        = 0.0f;
   v_ptr[0] = x;
   v_ptr[1] = y;
   v_ptr[2] = z;
@@ -32,12 +33,9 @@ Vector4D::Vector4D(__m256d newVector)
 }
 
 void
-Vector4D::GetFloatArray(float* arr)
+Vector4D::GetArray(double* arr)
 {
-  arr[0] = (float)v_ptr[0];
-  arr[1] = (float)v_ptr[1];
-  arr[2] = (float)v_ptr[2];
-  arr[3] = (float)v_ptr[3];
+  std::memcpy(arr, v_ptr, 4 * sizeof(double));
 }
 
 double&

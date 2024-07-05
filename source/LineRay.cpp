@@ -2,6 +2,7 @@
 
 #include "Matrix3D.h"
 #include "Transform4D.h"
+
 #include <cfloat>
 
 Line
@@ -36,7 +37,7 @@ DistanceLineLine(const Point3D&  p1,
 
   double det = dir1dir2 * dir1dir2 - dir1Sqr * dir2Sqr;
 
-  if (std::fabs(det) <= FLT_MIN) {
+  if (std::fabs(det) <= DBL_MIN) {
     Vector3D a = Cross(dp, dir1);
     return std::sqrt(Dot(a, a) / dir1dir2);
   }

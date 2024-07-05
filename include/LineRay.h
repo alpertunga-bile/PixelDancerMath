@@ -1,12 +1,15 @@
 #pragma once
 
-#include "Transform4D.h"
+#include "Vector3D.h"
+
+struct Point3D;
+struct Transform4D;
 
 struct Line
 {
   // Rule of 5
   Line() = default; // default constructor
-  Line(float vx, float vy, float vz, float mx, float my, float mz)
+  Line(double vx, double vy, double vz, double mx, double my, double mz)
     : direction(vx, vy, vz)
     , moment(mx, my, mz){}; // special constructor
   Line(const Vector3D& v, const Vector3D& m)

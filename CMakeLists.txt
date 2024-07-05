@@ -66,6 +66,7 @@ target_precompile_headers(
     <immintrin.h>
     <cfloat>
     <cmath>
+    <stdexcept>
     ${PXD_HEADER_FILES}
 )
 

@@ -1,5 +1,7 @@
 #include "Matrix3D.h"
 
+#include "Matrix4D.h"
+
 Matrix3D::Matrix3D(double n00,
                    double n01,
                    double n02,

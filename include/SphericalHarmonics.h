@@ -16,7 +16,8 @@ class SphericalHarmonics
 public:
   // Rule of 5
   SphericalHarmonics(); // default constructor
-                        // countSample must be sqrt of the desired total sample
+
+  // countSample must be sqrt of the desired total sample
   SphericalHarmonics(int countSample, int nBands); // special constructor
   SphericalHarmonics(const SphericalHarmonics& other) =
     default;                                                // copy constructor

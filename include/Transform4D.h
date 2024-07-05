@@ -28,13 +28,13 @@ struct Transform4D : Matrix4D
   Transform4D& operator=(const Transform4D& other) = default; // move assignment
   ~Transform4D()                                   = default; // deconstructor
 
-  const Point3D& GetTranslation() const { return Point3D(m[3], m[7], m[11]); }
+  const Point3D GetTranslation() const { return Point3D(m[3], m[7], m[11]); }
 
   void SetTranslation(const Point3D& p)
   {
-    m[3]  = (double)p.x;
-    m[7]  = (double)p.y;
-    m[11] = (double)p.z;
+    m[3]  = p.x;
+    m[7]  = p.y;
+    m[11] = p.z;
   }
 
   // access the jth column

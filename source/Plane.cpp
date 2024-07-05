@@ -8,10 +8,10 @@ IntersectLinePlane(const Point3D&  p,
                    const Plane&    f,
                    Point3D&        q)
 {
-  float fv = Dot(f, dir);
+  double fv = Dot(f, dir);
 
   // Check if line coming from front side of the plane f
-  if (std::fabs(fv) <= FLT_MIN)
+  if (std::fabs(fv) <= DBL_MIN)
     return false;
 
   Vector3D temp = p - dir * (Dot(f, p) / fv);
@@ -22,13 +22,13 @@ IntersectLinePlane(const Point3D&  p,
 Transform4D
 MakeReflection(const Plane& f)
 {
-  float x = f.x * -2.0f;
-  float y = f.y * -2.0f;
-  float z = f.z * -2.0f;
+  double x = f.x * -2.0f;
+  double y = f.y * -2.0f;
+  double z = f.z * -2.0f;
 
-  float nxny = x * f.y;
-  float nxnz = x * f.z;
-  float nynz = y * f.z;
+  double nxny = x * f.y;
+  double nxnz = x * f.z;
+  double nynz = y * f.z;
 
   return Transform4D(x * f.x + 1.0f,
                      nxny,
@@ -55,9 +55,9 @@ IntersectThreePlanes(const Plane& f1,
   const Vector3D n3 = f3.GetNormal();
 
   Vector3D n1n2 = Cross(n1, n2);
-  float    det  = Dot(n1n2, n3);
+  double   det  = Dot(n1n2, n3);
 
-  if (std::fabs(det) <= FLT_MIN)
+  if (std::fabs(det) <= DBL_MIN)
     return false;
 
   Vector3D temp =
@@ -72,10 +72,10 @@ IntersectTwoPlanes(const Plane& f1, const Plane& f2, Point3D& p, Vector3D& v)
   const Vector3D n1 = f1.GetNormal();
   const Vector3D n2 = f2.GetNormal();
 
-  v         = Cross(n1, n2);
-  float det = Dot(v, v);
+  v          = Cross(n1, n2);
+  double det = Dot(v, v);
 
-  if (std::fabs(det) <= FLT_MIN)
+  if (std::fabs(det) <= DBL_MIN)
     return false;
 
   Vector3D temp = (Cross(v, n2) * f1.w + Cross(n1, v) * f2.w) / det;

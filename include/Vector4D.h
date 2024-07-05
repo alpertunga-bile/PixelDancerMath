@@ -15,7 +15,7 @@ struct Vector4D
   Vector4D& operator=(const Vector4D& other) = default; // move assignment
   ~Vector4D()                                = default; // deconstructor
 
-  void GetFloatArray(float* arr);
+  void GetArray(double* arr);
 
   // accessing variables with indicies
   double&       operator[](int i);

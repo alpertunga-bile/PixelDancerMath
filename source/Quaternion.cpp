@@ -1,5 +1,7 @@
 #include "Quaternion.h"
 
+#include "Matrix3D.h"
+
 Quaternion::Quaternion(double a, double b, double c, double d)
 {
   v = Vector3D(a, b, c);
@@ -15,15 +17,15 @@ Quaternion::Quaternion(const Vector3D& _v, double s)
 Matrix3D
 Quaternion::GetRotationMatrix()
 {
-  float x2 = v.x * v.x;
-  float y2 = v.y * v.y;
-  float z2 = v.z * v.z;
-  float xy = v.x * v.y;
-  float xz = v.x * v.z;
-  float yz = v.y * v.z;
-  float wx = w * v.x;
-  float wy = w * v.y;
-  float wz = w * v.z;
+  double x2 = v.x * v.x;
+  double y2 = v.y * v.y;
+  double z2 = v.z * v.z;
+  double xy = v.x * v.y;
+  double xz = v.x * v.z;
+  double yz = v.y * v.z;
+  double wx = w * v.x;
+  double wy = w * v.y;
+  double wz = w * v.z;
 
   return Matrix3D(1.0f - 2.0f * (y2 + z2),
                   2.0f * (xy - wz),
@@ -42,9 +44,9 @@ Quaternion::SetRotationMatrix(const Matrix3D& m)
   if (Determinant(m) != 1)
     return;
 
-  float m00 = m(0, 0);
-  float m11 = m(1, 1);
-  float m22 = m(2, 2);
+  double m00 = m(0, 0);
+  double m11 = m(1, 1);
+  double m22 = m(2, 2);
 
   double diagonalSum = m00 + m11 + m22;
 
