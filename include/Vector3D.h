@@ -5,10 +5,24 @@
 
 struct Vector3D
 {
+  union
+  {
+    struct
+    {
+      __m256d _vector;
+    };
+
+    struct
+    {
+      double x, y, z;
+    };
+  };
+
   // Rule of 5
-  Vector3D();                                // default constructor
-  Vector3D(double _x, double _y, double _z); // special constructor
-  Vector3D(__m256d newVector);
+  Vector3D();                                           // default constructor
+  Vector3D(double val);                                 // special constructor
+  Vector3D(double _x, double _y, double _z);            // special constructor
+  Vector3D(__m256d newVector);                          // special constructor
   Vector3D(const Vector3D& other)            = default; // copy constructor
   Vector3D(Vector3D&& other)                 = default; // move constructor
   Vector3D& operator=(const Vector3D& other) = default; // move assignment
@@ -26,13 +40,6 @@ struct Vector3D
 
   double Magnitude();
   void   Normalize();
-
-  double  x, y, z;
-  double  v_ptr[3];
-  __m256d _vector;
-
-private:
-  void SetVariables();
 };
 
 inline Vector3D
@@ -71,10 +78,9 @@ operator-(const Vector3D& a, const Vector3D& b)
 inline double
 Magnitude(const Vector3D& v)
 {
-  double  tempPtr[4];
   __m256d temp = _mm256_set1_pd(v.x * v.x + v.y * v.y + v.z * v.z);
-  _mm256_store_pd(tempPtr, _mm256_sqrt_pd(temp));
-  return tempPtr[0];
+  temp         = _mm256_sqrt_pd(temp);
+  return temp.m256d_f64[0];
 }
 
 inline Vector3D
@@ -86,10 +92,9 @@ Normalize(const Vector3D& v)
 inline double
 Dot(const Vector3D& a, const Vector3D& b)
 {
-  double  tempPtr[4];
   __m256d xy = _mm256_mul_pd(a._vector, b._vector);
-  _mm256_store_pd(tempPtr, _mm256_hadd_pd(xy, xy));
-  return tempPtr[0] + tempPtr[2];
+  xy         = _mm256_hadd_pd(xy, xy);
+  return xy.m256d_f64[0] + xy.m256d_f64[2];
 }
 
 inline Vector3D

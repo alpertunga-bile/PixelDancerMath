@@ -12,8 +12,7 @@ Vector4D::Vector4D(double val)
 
 Vector4D::Vector4D(double _x, double _y, double _z, double _w)
 {
-  double temp[4] = { _x, _y, _z, _w };
-  _vector        = _mm256_load_pd(temp);
+  _vector = _mm256_set_pd(_w, _z, _y, _x);
 }
 
 Vector4D::Vector4D(__m256d newVector)
