@@ -4,10 +4,24 @@
 
 struct Vector2D
 {
+  union
+  {
+    struct
+    {
+      __m128d _vector;
+    };
+
+    struct
+    {
+      double x, y;
+    };
+  };
+
   // Rule of 5
-  Vector2D();                     // default constructor
-  Vector2D(double _x, double _y); // special constructor
-  Vector2D(__m128d newVector);
+  Vector2D();                                           // default constructor
+  Vector2D(double val);                                 // special constructor
+  Vector2D(double _x, double _y);                       // special constructor
+  Vector2D(__m128d newVector);                          // special constructor
   Vector2D(const Vector2D& other)            = default; // copy constructor
   Vector2D(Vector2D&& other)                 = default; // move constructor
   Vector2D& operator=(const Vector2D& other) = default; // move assignment
@@ -25,13 +39,6 @@ struct Vector2D
 
   double Magnitude();
   void   Normalize();
-
-  double  x, y;
-  double  v_ptr[2];
-  __m128d _vector;
-
-private:
-  void SetVariables();
 };
 
 inline Vector2D
@@ -70,10 +77,9 @@ operator-(const Vector2D& a, const Vector2D& b)
 inline double
 Magnitude(const Vector2D& v)
 {
-  double  tempPtr[2];
   __m128d temp = _mm_set1_pd(v.x * v.x + v.y * v.y);
-  _mm_store_pd(tempPtr, _mm_sqrt_pd(temp));
-  return tempPtr[0];
+  temp         = _mm_sqrt_pd(temp);
+  return temp.m128d_f64[0];
 }
 
 inline Vector2D
@@ -88,8 +94,6 @@ Normalize(const Vector2D& v)
 inline double
 Dot(const Vector2D& a, const Vector2D& b)
 {
-  double  tempPtr[2];
   __m128d temp = _mm_mul_pd(a._vector, b._vector);
-  _mm_store_pd(tempPtr, temp);
-  return tempPtr[0] + tempPtr[1];
+  return temp.m128d_f64[0] + temp.m128d_f64[1];
 }

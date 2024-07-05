@@ -1,40 +1,35 @@
 #include "Vector2D.h"
-#include <iostream>
 
 Vector2D::Vector2D()
 {
-  x        = 0.0;
-  y        = 0.0;
-  v_ptr[0] = x;
-  v_ptr[1] = y;
-  _vector  = _mm_set1_pd(0.0);
+  _vector = _mm_setzero_pd();
+}
+
+Vector2D::Vector2D(double val)
+{
+  _vector = _mm_set1_pd(val);
 }
 
 Vector2D::Vector2D(double _x, double _y)
 {
-  x        = _x;
-  y        = _y;
-  v_ptr[0] = x;
-  v_ptr[1] = y;
-  _vector  = _mm_set_pd(y, x);
+  _vector = _mm_set_pd(_y, _x);
 }
 
 Vector2D::Vector2D(__m128d newVector)
 {
   _vector = newVector;
-  SetVariables();
 }
 
 double&
 Vector2D::operator[](int i)
 {
-  return (v_ptr[i]);
+  return _vector.m128d_f64[i];
 }
 
 const double&
 Vector2D::operator[](int i) const
 {
-  return v_ptr[i];
+  return _vector.m128d_f64[i];
 }
 
 Vector2D&
@@ -42,7 +37,6 @@ Vector2D::operator*=(double s)
 {
   __m128d temp = _mm_set1_pd(s);
   _vector      = _mm_mul_pd(_vector, temp);
-  SetVariables();
   return (*this);
 }
 
@@ -54,7 +48,6 @@ Vector2D::operator/=(double s)
 
   __m128d temp = _mm_set1_pd(s);
   _vector      = _mm_div_pd(_vector, temp);
-  SetVariables();
   return (*this);
 }
 
@@ -62,7 +55,6 @@ Vector2D&
 Vector2D::operator+=(const Vector2D& v)
 {
   _vector = _mm_add_pd(_vector, v._vector);
-  SetVariables();
   return (*this);
 }
 
@@ -70,17 +62,15 @@ Vector2D&
 Vector2D::operator-=(const Vector2D& v)
 {
   _vector = _mm_sub_pd(_vector, v._vector);
-  SetVariables();
   return (*this);
 }
 
 double
 Vector2D::Magnitude()
 {
-  double  tempPtr[2];
   __m128d temp = _mm_set1_pd(x * x + y * y);
-  _mm_store_pd(tempPtr, _mm_sqrt_pd(temp));
-  return tempPtr[0];
+  temp         = _mm_sqrt_pd(temp);
+  return temp.m128d_f64[0];
 }
 
 void
@@ -90,16 +80,4 @@ Vector2D::Normalize()
     return;
 
   _vector = _mm_div_pd(_vector, _mm_set1_pd(Magnitude()));
-  SetVariables();
-}
-
-void
-Vector2D::SetVariables()
-{
-  double tempPtr[2];
-  _mm_store_pd(tempPtr, _vector);
-  v_ptr[0] = tempPtr[0];
-  v_ptr[1] = tempPtr[1];
-  x        = v_ptr[0];
-  y        = v_ptr[1];
 }
