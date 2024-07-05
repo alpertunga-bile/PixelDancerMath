@@ -6,8 +6,41 @@
 // column based matrix
 struct Matrix4D
 {
+  union
+  {
+    struct
+    {
+      double m[16];
+    };
+
+    struct
+    {
+      Vector4D cols[4];
+    };
+
+    struct
+    {
+      double a_x;
+      double a_y;
+      double a_z;
+      double a_w;
+      double b_x;
+      double b_y;
+      double b_z;
+      double b_w;
+      double c_x;
+      double c_y;
+      double c_z;
+      double c_w;
+      double d_x;
+      double d_y;
+      double d_z;
+      double d_w;
+    };
+  };
+
   // Rule of 5
-  Matrix4D() = default; // default constructor
+  Matrix4D(); // default constructor
   Matrix4D(double n00,
            double n01,
            double n02,
@@ -37,19 +70,21 @@ struct Matrix4D
 
   const double& operator()(int i, int j) const { return (m[j * 4 + i]); }
 
-  // access the jth column
+  /// @brief get j th row
+  /// @param j row index
+  /// @return Vector4D with row values
   Vector4D operator[](int j)
   {
     return Vector4D(m[j + 0], m[j + 4], m[j + 8], m[j + 12]);
   }
 
-  // access the jth column
+  /// @brief get j th row
+  /// @param j row index
+  /// @return Vector4D with row values
   const Vector4D operator[](int j) const
   {
     return Vector4D(m[j + 0], m[j + 4], m[j + 8], m[j + 12]);
   }
-
-  double m[16];
 };
 
 inline Matrix4D

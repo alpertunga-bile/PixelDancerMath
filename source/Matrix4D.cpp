@@ -1,6 +1,13 @@
 #include "Matrix4D.h"
 #include <iostream>
 
+Matrix4D::Matrix4D()
+{
+  for (int i = 0; i < 16; ++i) {
+    m[i] = 0.0;
+  }
+}
+
 Matrix4D::Matrix4D(double n00,
                    double n01,
                    double n02,

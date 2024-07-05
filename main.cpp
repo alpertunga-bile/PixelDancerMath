@@ -1,17 +1,30 @@
-#include "Vector4D.h"
+#include "Matrix4D.h"
 
 #include <iostream>
 
 int
 main()
 {
-  Vector4D vec(1.0, 2.0, 3.0, 4.0);
+  Matrix4D m(1.0,
+             2.0,
+             3.0,
+             4.0,
+             5.0,
+             6.0,
+             7.0,
+             8.0,
+             9.0,
+             10.0,
+             11.0,
+             12.0,
+             13.0,
+             14.0,
+             15.0,
+             16.0);
 
-  vec[0] = 5.0;
+  Vector4D col_0 = m.cols[0];
 
-  vec = vec + Vector4D(1.0);
-
-  std::printf("%.2f %.2f %.2f %.2f\n", vec.x, vec[1], vec[2], vec[3]);
+  std::printf("%.2f %.2f %.2f %.2f\n", col_0.x, col_0.y, col_0.z, col_0.w);
 
   return 0;
 }
