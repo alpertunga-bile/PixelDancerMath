@@ -25,12 +25,6 @@ Vector2D::Vector2D(__m128d newVector)
   SetVariables();
 }
 
-void
-Vector2D::GetArray(double* arr)
-{
-  std::memcpy(arr, v_ptr, 2 * sizeof(double));
-}
-
 double&
 Vector2D::operator[](int i)
 {

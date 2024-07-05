@@ -49,17 +49,20 @@ Dot(const Plane& f, const Point3D& p)
   return (f.x * p.x + f.y * p.y + f.z * p.z + f.w);
 }
 
-bool
+inline bool
 IntersectLinePlane(const Point3D&  p,
                    const Vector3D& dir,
                    const Plane&    f,
                    Point3D&        q);
-Transform4D
+
+inline Transform4D
 MakeReflection(const Plane& f);
-bool
+
+inline bool
 IntersectThreePlanes(const Plane& f1,
                      const Plane& f2,
                      const Plane& f3,
                      Point3D&     p);
-bool
+
+inline bool
 IntersectTwoPlanes(const Plane& f1, const Plane& f2, Point3D& p, Vector3D& v);

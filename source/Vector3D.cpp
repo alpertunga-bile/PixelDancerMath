@@ -29,12 +29,6 @@ Vector3D::Vector3D(__m256d newVector)
   SetVariables();
 }
 
-void
-Vector3D::GetArray(double* arr)
-{
-  std::memcpy(arr, v_ptr, 3 * sizeof(double));
-}
-
 double&
 Vector3D::operator[](int i)
 {

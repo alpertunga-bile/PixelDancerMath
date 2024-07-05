@@ -2,6 +2,8 @@
 
 struct Matrix4D;
 
+#include "Vector3D.h"
+
 // column based matrix
 struct Matrix3D
 {

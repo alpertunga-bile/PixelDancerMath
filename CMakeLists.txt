@@ -60,6 +60,8 @@ include_directories(
 
 add_library(${PROJECT_NAME} ${PXD_SOURCE_FILES})
 
+add_executable(pxd-math-test ${PXD_SOURCE_FILES} main.cpp)
+
 target_precompile_headers(
     ${PROJECT_NAME} PRIVATE
     <random>

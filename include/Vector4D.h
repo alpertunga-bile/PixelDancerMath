@@ -5,21 +5,32 @@
 
 struct Vector4D
 {
+  union
+  {
+    struct
+    {
+      __m256d _vector;
+    };
+
+    struct
+    {
+      double x, y, z, w;
+    };
+  };
+
   // Rule of 5
-  Vector4D(); // default constructor
-  Vector4D(double _x, double _y, double _z,
-           double _w);                                  // special constructor
+  Vector4D();                                           // default constructor
+  Vector4D(double val);                                 // special constructor
+  Vector4D(double _x, double _y, double _z, double _w); // special constructor
   Vector4D(__m256d newVector);                          // special constructor
   Vector4D(const Vector4D& other)            = default; // copy constructor
   Vector4D(Vector4D&& other)                 = default; // move constructor
   Vector4D& operator=(const Vector4D& other) = default; // move assignment
   ~Vector4D()                                = default; // deconstructor
 
-  void GetArray(double* arr);
-
   // accessing variables with indicies
-  double&       operator[](int i);
-  const double& operator[](int i) const;
+  double&      operator[](int i);
+  const double operator[](int i) const;
 
   // math operator overloads
   Vector4D& operator*=(double s);
@@ -29,13 +40,6 @@ struct Vector4D
 
   double Magnitude();
   void   Normalize();
-
-  double  x, y, z, w;
-  double  v_ptr[4];
-  __m256d _vector;
-
-private:
-  void SetVariables();
 };
 
 inline Vector4D
@@ -74,11 +78,10 @@ operator-(const Vector4D& a, const Vector4D& b)
 inline double
 Magnitude(const Vector4D& v)
 {
-  double  tempPtr[4];
   __m256d vec2 = _mm256_mul_pd(v._vector, v._vector);
   vec2         = _mm256_hadd_pd(vec2, vec2);
-  _mm256_store_pd(tempPtr, _mm256_sqrt_pd(vec2));
-  return tempPtr[0] + tempPtr[2];
+  vec2         = _mm256_sqrt_pd(vec2);
+  return vec2.m256d_f64[0] + vec2.m256d_f64[2];
 }
 
 inline Vector4D
@@ -90,11 +93,9 @@ Normalize(const Vector4D& v)
 inline double
 Dot(const Vector4D& a, const Vector4D& b)
 {
-  double  tempPtr[4];
   __m256d vec2 = _mm256_mul_pd(a._vector, b._vector);
   vec2         = _mm256_hadd_pd(vec2, vec2);
-  _mm256_store_pd(tempPtr, vec2);
-  return tempPtr[0] + tempPtr[2];
+  return vec2.m256d_f64[0] + vec2.m256d_f64[2];
 }
 
 inline Vector4D

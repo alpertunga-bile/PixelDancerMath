@@ -118,7 +118,7 @@ operator*(const Transform4D& tf, const Point3D& p)
 }
 
 // Translate normal vector between coordinate systems
-Vector3D
+inline Vector3D
 operator*(const Vector3D& n, const Transform4D& m)
 {
   return Vector3D(n.x * m(0, 0) + n.y * m(1, 0) + n.z * m(2, 0),
