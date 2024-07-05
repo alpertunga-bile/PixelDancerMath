@@ -2,20 +2,22 @@
 
 #include "Matrix4D.h"
 
+struct Matrix4D;
+
 // column based matrix
 struct Matrix3D
 {
   // Rule of 5
   Matrix3D() = default; // default constructor
-  Matrix3D(float n00,
-           float n01,
-           float n02,
-           float n10,
-           float n11,
-           float n12,
-           float n20,
-           float n21,
-           float n22); // special constructor
+  Matrix3D(double n00,
+           double n01,
+           double n02,
+           double n10,
+           double n11,
+           double n12,
+           double n20,
+           double n21,
+           double n22); // special constructor
   Matrix3D(const Vector3D& a,
            const Vector3D& b,
            const Vector3D& c); // special constructor
@@ -25,11 +27,9 @@ struct Matrix3D
   Matrix3D& operator=(const Matrix3D& other) = default; // move assignment
   ~Matrix3D()                                = default; // deconstructor
 
-  void Print(const char* name);
+  double& operator()(int i, int j) { return (m[j * 3 + i]); }
 
-  float& operator()(int i, int j) { return (m[j * 3 + i]); }
-
-  const float& operator()(int i, int j) const { return (m[j * 3 + i]); }
+  const double& operator()(int i, int j) const { return (m[j * 3 + i]); }
 
   // access the jth column
   Vector3D operator[](int j) { return Vector3D(m[j + 0], m[j + 3], m[j + 6]); }
@@ -40,7 +40,7 @@ struct Matrix3D
     return Vector3D(m[j + 0], m[j + 3], m[j + 6]);
   }
 
-  float m[9];
+  double m[9];
 };
 
 inline Matrix3D
@@ -97,7 +97,7 @@ operator*(const Matrix3D& m, const Vector3D& v)
                   m(2, 0) * v.x + m(2, 1) * v.y + m(2, 2) * v.z);
 }
 
-inline float
+inline double
 Determinant(const Matrix3D& m)
 {
   return (m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1)) +
@@ -122,7 +122,7 @@ Transpose(const Matrix3D& m)
 inline Matrix3D
 Inverse(const Matrix3D& m)
 {
-  float det = Determinant(m);
+  double det = Determinant(m);
 
   if (det == 0)
     return Matrix3D();

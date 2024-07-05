@@ -63,6 +63,9 @@ add_library(${PROJECT_NAME} ${PXD_SOURCE_FILES})
 target_precompile_headers(
     ${PROJECT_NAME} PRIVATE
     <random>
+    <immintrin.h>
+    <cfloat>
+    <cmath>
     ${PXD_HEADER_FILES}
 )
 

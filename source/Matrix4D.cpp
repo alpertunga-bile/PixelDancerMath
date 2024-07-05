@@ -58,19 +58,3 @@ Matrix4D::Matrix4D(const Vector4D& a,
   m[14] = (double)d.z;
   m[15] = (double)d.w;
 }
-
-void
-Matrix4D::Print(const char* name)
-{
-  std::cout << "---------------------------------------------------------------"
-               "-----------\n";
-  std::cout << name << " (Matrix4D) Variables : \n";
-  for (int index = 0; index < 16; index++) {
-    std::cout << m[index] << "\t";
-    if (index == 3 || index == 7 || index == 11 || index == 15) {
-      std::cout << "\n";
-    }
-  }
-  std::cout << "---------------------------------------------------------------"
-               "-----------\n";
-}

@@ -33,8 +33,6 @@ struct Matrix4D
   Matrix4D& operator=(const Matrix4D& other) = default; // move assignment
   ~Matrix4D()                                = default; // deconstructor
 
-  void Print(const char* name);
-
   double& operator()(int i, int j) { return (m[j * 4 + i]); }
 
   const double& operator()(int i, int j) const { return (m[j * 4 + i]); }

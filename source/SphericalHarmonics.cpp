@@ -64,23 +64,6 @@ SphericalHarmonics::Setup()
 }
 
 void
-SphericalHarmonics::Print()
-{
-  const int totalSize = countOfSamples * countOfSamples;
-
-  for (int i = 0; i < totalSize; i++) {
-    printf("\n> %d -----------------------------------------\n", i);
-    samples[i].sh.Print("Sphere Coordinates");
-    samples[i].vec.Print("Cartesian Coordinate");
-
-    size_t coSize = samples[i].coefficient.size();
-    for (size_t j = 0; j < coSize; j++) {
-      printf("%.5f ", samples[i].coefficient[j]);
-    }
-  }
-}
-
-void
 SphericalHarmonics::ReCalculate(int _countSamples, int _nBands)
 {
   samples.clear();

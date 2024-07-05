@@ -25,7 +25,6 @@ public:
     default;                       // move assignment
   ~SphericalHarmonics() = default; // deconstructor
 
-  void Print();
   // Calculate with different samples and nBands
   void ReCalculate(int _countSamples, int _nBands);
 

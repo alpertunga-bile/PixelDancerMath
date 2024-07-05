@@ -1,5 +1,7 @@
 #include "LineRay.h"
+
 #include "Matrix3D.h"
+#include "Transform4D.h"
 #include <cfloat>
 
 Line

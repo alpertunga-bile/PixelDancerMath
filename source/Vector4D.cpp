@@ -1,5 +1,4 @@
 #include "Vector4D.h"
-#include <iostream>
 
 Vector4D::Vector4D()
 {
@@ -30,13 +29,6 @@ Vector4D::Vector4D(__m256d newVector)
 {
   _vector = newVector;
   SetVariables();
-}
-
-void
-Vector4D::Print(const char* name)
-{
-  std::cout << name << " (Vector4D) => x : " << x << " | y : " << y
-            << " | z : " << z << " | w : " << w << '\n';
 }
 
 void

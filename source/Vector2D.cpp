@@ -26,12 +26,6 @@ Vector2D::Vector2D(__m128d newVector)
 }
 
 void
-Vector2D::Print(const char* name)
-{
-  std::cout << name << " (Vector2D) => x : " << x << " | y : " << y << '\n';
-}
-
-void
 Vector2D::GetFloatArray(float* arr)
 {
   arr[0] = static_cast<float>(v_ptr[0]);

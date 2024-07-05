@@ -30,13 +30,6 @@ Vector3D::Vector3D(__m256d newVector)
 }
 
 void
-Vector3D::Print(const char* name)
-{
-  std::cout << name << " (Vector3D) => x : " << x << " | y : " << y
-            << " | z : " << z << '\n';
-}
-
-void
 Vector3D::GetFloatArray(float* arr)
 {
   arr[0] = (float)v_ptr[0];

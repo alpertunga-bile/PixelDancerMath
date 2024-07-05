@@ -13,7 +13,6 @@ struct Vector2D
   Vector2D& operator=(const Vector2D& other) = default; // move assignment
   ~Vector2D()                                = default; // deconstructor
 
-  void Print(const char* name);
   void GetFloatArray(float* arr);
 
   // accessing variables with indicies

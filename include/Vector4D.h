@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cmath>
-
 #include <immintrin.h>
 
 struct Vector4D
@@ -16,7 +15,6 @@ struct Vector4D
   Vector4D& operator=(const Vector4D& other) = default; // move assignment
   ~Vector4D()                                = default; // deconstructor
 
-  void Print(const char* name);
   void GetFloatArray(float* arr);
 
   // accessing variables with indicies
