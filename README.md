@@ -6,7 +6,7 @@ PixelDancerMath or PXDMath is a library of math functions and data structures. A
 
 - Current aim is to integrate SIMD to math functions
 
-- [x] AVX2 is implemented to Vector2D class.
+- [x] SSE2 is implemented to Vector2D class.
 - [x] AVX2 is implemented to Vector3D class.
 - [x] AVX2 is implemented to Vector4D class.
 
