@@ -7,8 +7,37 @@ struct Matrix4D;
 // column based matrix
 struct Matrix3D
 {
+  union
+  {
+    struct
+    {
+      double m[9];
+    };
+
+    struct
+    {
+      Vector3D cols[3];
+    };
+
+    struct
+    {
+      double a_x;
+      double a_y;
+      double a_z;
+      double b_x;
+      double b_y;
+      double b_z;
+      double c_x;
+      double c_y;
+      double c_z;
+      double d_x;
+      double d_y;
+      double d_z;
+    };
+  };
+
   // Rule of 5
-  Matrix3D() = default; // default constructor
+  Matrix3D(); // default constructor
   Matrix3D(double n00,
            double n01,
            double n02,
@@ -31,16 +60,18 @@ struct Matrix3D
 
   const double& operator()(int i, int j) const { return (m[j * 3 + i]); }
 
-  // access the jth column
+  /// @brief get j th row
+  /// @param j row index
+  /// @return Vector3D with row values
   Vector3D operator[](int j) { return Vector3D(m[j + 0], m[j + 3], m[j + 6]); }
 
-  // access the jth column
+  /// @brief get j th row
+  /// @param j row index
+  /// @return Vector3D with row values
   const Vector3D operator[](int j) const
   {
     return Vector3D(m[j + 0], m[j + 3], m[j + 6]);
   }
-
-  double m[9];
 };
 
 inline Matrix3D
@@ -135,7 +166,7 @@ Inverse(const Matrix3D& m)
   Vector3D row1 = Cross(c, a);
   Vector3D row2 = Cross(a, b);
 
-  double invDet = 1.0f / Dot(row2, c);
+  double invDet = 1.0 / Dot(row2, c);
 
   return Matrix3D(row0 * invDet, row1 * invDet, row2 * invDet);
 }

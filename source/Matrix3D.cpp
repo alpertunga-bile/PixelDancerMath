@@ -2,6 +2,13 @@
 
 #include "Matrix4D.h"
 
+Matrix3D::Matrix3D()
+{
+  for (int i = 0; i < 9; ++i) {
+    m[i] = 0.0;
+  }
+}
+
 Matrix3D::Matrix3D(double n00,
                    double n01,
                    double n02,
