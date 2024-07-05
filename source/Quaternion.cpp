@@ -1,6 +1,7 @@
 #include "Quaternion.h"
 
 #include "Matrix3D.h"
+#include <cmath>
 
 Quaternion::Quaternion(double a, double b, double c, double d)
 {

@@ -2,7 +2,7 @@
 
 #include "ConstantValues.h"
 #include "Matrix3D.h"
-#include "Vector3D.h"
+#include <cmath>
 
 namespace pxd {
 Matrix3D

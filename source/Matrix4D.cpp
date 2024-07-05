@@ -1,5 +1,4 @@
 #include "Matrix4D.h"
-#include <iostream>
 
 Matrix4D::Matrix4D()
 {

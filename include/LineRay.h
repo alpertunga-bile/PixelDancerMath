@@ -28,8 +28,10 @@ struct Line
 
 Line
 Transform(const Line& line, const Transform4D& h);
+
 double
 DistancePointLine(const Point3D& p, const Point3D& start, const Vector3D& dir);
+
 double
 DistanceLineLine(const Point3D&  p1,
                  const Vector3D& dir1,

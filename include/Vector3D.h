@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cmath>
 #include <immintrin.h>
 
 struct Vector3D

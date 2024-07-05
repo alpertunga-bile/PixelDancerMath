@@ -1,8 +1,8 @@
 #include "SphericalHarmonics.h"
+
 #include "ConstantValues.h"
 
 #include <random>
-#include <string>
 
 SphericalHarmonics::SphericalHarmonics()
 {
@@ -29,7 +29,7 @@ SphericalHarmonics::Setup()
   std::random_device                                       device;
   std::mt19937                                             generator(device());
   std::uniform_int_distribution<std::mt19937::result_type> randGen(
-    0, countOfSamples * countOfSamples - 10);
+    0, countOfSamples * countOfSamples);
 
   for (int a = 0; a < size; a++) {
     for (int b = 0; b < size; b++) {
@@ -105,11 +105,11 @@ SphericalHarmonics::PreCalculateFactorials()
   }
 }
 
-float
+double
 SphericalHarmonics::Factorial(int n)
 {
   if (n == 1 || n == 0)
-    return 1.0f;
+    return 1.0;
 
   return n * Factorial(n - 1);
 }
@@ -160,10 +160,10 @@ SphericalHarmonics::GetScalingFactor(int l, int m)
 double
 SphericalHarmonics::SH(int l, int m, double theta, double phi)
 {
-  // l -> band ; [0, N]
-  // m -> [-l, l]
-  // theta -> [0, PI]
-  // phi -> [0, 2 * PI]
+  // l      -> band ; [0, N]
+  // m      -> [-l, l]
+  // theta  -> [0, PI]
+  // phi    -> [0, 2 * PI]
 
   const double sqrt2 = sqrt(2.0);
 

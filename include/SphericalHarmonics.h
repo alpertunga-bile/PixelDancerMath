@@ -57,11 +57,11 @@ public:
   }
 
 private:
-  void  Setup();
-  void  PreCalculateFactorials();
-  float Factorial(int n);
+  void   Setup();
+  void   PreCalculateFactorials();
+  double Factorial(int n);
 
-  // associeated legendre polynomial at x | P
+  // associated legendre polynomial at x | P
   double GetLegendrePolynomialValue(int l, int m, double x);
   // scaling factor to normalize the function | K
   double GetScalingFactor(int l, int m);
@@ -71,5 +71,5 @@ private:
   std::vector<SHSample> samples;
   int                   nBands;
   int                   countOfSamples;
-  float                 factorials[34] = { 0.0 };
+  double                factorials[34] = { 0.0 };
 };

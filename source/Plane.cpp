@@ -1,6 +1,8 @@
 #include "Plane.h"
 
 #include <cfloat>
+#include <cmath>
+
 
 bool
 IntersectLinePlane(const Point3D&  p,

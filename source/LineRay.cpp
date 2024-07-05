@@ -4,6 +4,8 @@
 #include "Transform4D.h"
 
 #include <cfloat>
+#include <cmath>
+
 
 Line
 Transform(const Line& line, const Transform4D& h)
